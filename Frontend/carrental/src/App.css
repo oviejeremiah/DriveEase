@@ -1,0 +1,87 @@
+/* Add to existing CSS */
+.content {
+  padding: 2rem;
+}
+
+.car-list h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.car-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.car-card img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.car-card h3 {
+  margin: 1rem 0 0.5rem;
+}
+
+.car-card p {
+  margin: 0.25rem 0;
+}
+
+.car-card .price {
+  font-weight: bold;
+  color: #1976d2;
+  margin: 0.5rem 0;
+}
+
+.car-card button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Add to existing CSS */
+.auth-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}

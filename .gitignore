@@ -1,0 +1,16 @@
+# Node.js backend
+backend/node_modules
+backend/.env
+
+# React frontend
+frontend/carrental/node_modules
+frontend/carrental/build
+
+# OS and IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+
+# Dependency directories
+node_modules/
