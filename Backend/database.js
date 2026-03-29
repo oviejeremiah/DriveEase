@@ -96,13 +96,25 @@ db.serialize(() => {
     `);
 
     const cars = [
-      ['Toyota',     'Camry',   2023, 'Sedan',    50,  1, 'https://via.placeholder.com/400x250?text=Toyota+Camry',   'Comfortable and fuel-efficient sedan.',      5, 'Automatic', 'Petrol'],
-      ['Honda',      'CR-V',    2022, 'SUV',       65,  1, 'https://via.placeholder.com/400x250?text=Honda+CRV',      'Spacious SUV perfect for family trips.',     5, 'Automatic', 'Petrol'],
-      ['Tesla',      'Model 3', 2023, 'Electric',  85,  1, 'https://via.placeholder.com/400x250?text=Tesla+Model+3',  'Premium electric car with autopilot.',       5, 'Automatic', 'Electric'],
-      ['BMW',        '3 Series',2022, 'Sedan',     95,  1, 'https://via.placeholder.com/400x250?text=BMW+3+Series',   'Luxury performance sedan.',                  5, 'Automatic', 'Petrol'],
-      ['Ford',       'Explorer',2023, 'SUV',       75,  1, 'https://via.placeholder.com/400x250?text=Ford+Explorer',  'Bold SUV with advanced safety features.',    7, 'Automatic', 'Petrol'],
-      ['Mercedes',   'C-Class', 2023, 'Sedan',    110,  1, 'https://via.placeholder.com/400x250?text=Mercedes+CClass','Elegant luxury sedan with premium interior.',5, 'Automatic', 'Petrol'],
-    ];
+  ['Toyota', 'Camry', 2023, 'Sedan', 50, 1,
+    'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
+    'Comfortable and fuel-efficient sedan perfect for city and highway driving.', 5, 'Automatic', 'Petrol'],
+  ['Honda', 'CR-V', 2022, 'SUV', 65, 1,
+    'https://images.unsplash.com/photo-1568844293986-8d0400bd4745?w=800&q=80',
+    'Spacious SUV perfect for family trips with advanced safety features.', 5, 'Automatic', 'Petrol'],
+  ['Tesla', 'Model 3', 2023, 'Electric', 85, 1,
+    'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80',
+    'Premium electric car with autopilot and zero emissions.', 5, 'Automatic', 'Electric'],
+  ['BMW', '3 Series', 2022, 'Sedan', 95, 1,
+    'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+    'Luxury performance sedan with cutting-edge technology.', 5, 'Automatic', 'Petrol'],
+  ['Ford', 'Explorer', 2023, 'SUV', 75, 1,
+    'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80',
+    'Bold SUV with advanced safety features and spacious interior.', 7, 'Automatic', 'Petrol'],
+  ['Mercedes', 'C-Class', 2023, 'Sedan', 110, 1,
+    'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',
+    'Elegant luxury sedan with premium interior and smooth ride.', 5, 'Automatic', 'Petrol'],
+];
 
     cars.forEach(car => stmt.run(car));
     stmt.finalize();
