@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-inner">
         <Link to="/" className="navbar-brand">
-          🚗 DriveEase
+          Drive<span>Ease</span>
         </Link>
 
         <button
@@ -30,7 +30,7 @@ const Navbar = () => {
         </button>
 
         <ul className={`navbar-links ${menuOpen ? 'open' : ''}`}>
-          <li><Link to="/"     onClick={() => setMenuOpen(false)}>Home</Link></li>
+          <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
           <li><Link to="/cars" onClick={() => setMenuOpen(false)}>Browse Cars</Link></li>
 
           {user ? (
@@ -39,19 +39,19 @@ const Navbar = () => {
               {isAdmin() && (
                 <li><Link to="/admin" onClick={() => setMenuOpen(false)}>Admin</Link></li>
               )}
+              <li><span className="nav-username">{user.username}</span></li>
               <li>
                 <button className="btn btn-outline nav-btn" onClick={handleLogout}>
                   Logout
                 </button>
               </li>
-              <li className="nav-username">Hi, {user.username}!</li>
             </>
           ) : (
             <>
-              <li><Link to="/login"    onClick={() => setMenuOpen(false)}>Login</Link></li>
+              <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>
               <li>
-                <Link to="/register" className="btn btn-accent nav-btn" onClick={() => setMenuOpen(false)}>
-                  Sign Up
+                <Link to="/register" className="btn btn-primary nav-btn" onClick={() => setMenuOpen(false)}>
+                  Get Started
                 </Link>
               </li>
             </>

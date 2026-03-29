@@ -45,7 +45,7 @@ const MyBookings = () => {
 
         {bookings.length === 0 ? (
           <div className="no-bookings">
-            <span className="no-bookings-icon">🚗</span>
+            <span className="no-bookings-icon"></span>
             <h2>No bookings yet</h2>
             <p>You haven't made any reservations. Start browsing our fleet!</p>
             <a href="/cars" className="btn btn-primary">Browse Cars</a>
@@ -71,7 +71,7 @@ const MyBookings = () => {
 
                   <div className="booking-dates">
                     <div className="date-item">
-                      <span className="date-label">📅 Pick-up</span>
+                      <span className="date-label">Pick-up</span>
                       <span className="date-value">
                         {new Date(booking.start_date).toLocaleDateString('en-US', {
                           weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
@@ -80,7 +80,7 @@ const MyBookings = () => {
                     </div>
                     <div className="date-arrow">→</div>
                     <div className="date-item">
-                      <span className="date-label">📅 Return</span>
+                      <span className="date-label">Return</span>
                       <span className="date-value">
                         {new Date(booking.end_date).toLocaleDateString('en-US', {
                           weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
@@ -91,7 +91,7 @@ const MyBookings = () => {
 
                   <div className="booking-footer">
                     <div className="booking-duration">
-                      🕐 {calculateDays(booking.start_date, booking.end_date)} day(s)
+                      {calculateDays(booking.start_date, booking.end_date)} day(s)
                     </div>
                     <div className="booking-total">
                       Total: <strong>${booking.total_price.toFixed(2)}</strong>

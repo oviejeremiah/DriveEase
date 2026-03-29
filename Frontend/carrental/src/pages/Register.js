@@ -72,7 +72,7 @@ const Register = () => {
       <div className="auth-card card">
 
         <div className="auth-header">
-          <h1>🚗 DriveEase</h1>
+          <h1>DriveEase</h1>
           <h2>Create your account</h2>
           <p>Join thousands of happy DriveEase customers</p>
         </div>

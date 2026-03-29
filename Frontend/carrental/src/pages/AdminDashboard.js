@@ -111,9 +111,9 @@ const AdminDashboard = () => {
               className={`tab-btn ${tab === t ? 'active' : ''}`}
               onClick={() => setTab(t)}
             >
-              {t === 'bookings' ? '📅 Bookings'
-                : t === 'users' ? '👥 Users'
-                : '➕ Add Car'}
+              {t === 'bookings' ? 'Bookings'
+                : t === 'users' ? 'Users'
+                : 'Add Car'}
             </button>
           ))}
         </div>

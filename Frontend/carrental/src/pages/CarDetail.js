@@ -60,7 +60,7 @@ const CarDetail = () => {
     setBookingLoading(true);
     try {
       await createBooking({ car_id: car.id, start_date: startDate, end_date: endDate });
-      setBookingSuccess('🎉 Booking confirmed! Check your bookings page.');
+      setBookingSuccess('Booking confirmed! Check your bookings page.');
       setCar(prev => ({ ...prev, available: 0 }));
     } catch (err) {
       setBookingError(err.response?.data?.error || 'Failed to create booking.');
@@ -69,7 +69,7 @@ const CarDetail = () => {
     }
   };
 
-  const renderStars = (rating) => '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  const renderStars = (rating) => `${rating}/5`;
 
   const avgRating = reviews.length
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
@@ -83,14 +83,12 @@ const CarDetail = () => {
     <div className="car-detail-page">
       <div className="container">
 
-        {/* Back button */}
         <button className="back-btn" onClick={() => navigate('/cars')}>
-          ← Back to Cars
+          Back to Cars
         </button>
 
         <div className="car-detail-layout">
 
-          {/* Left: Car Info */}
           <div className="car-info">
             <div className="car-detail-image">
               <img src={car.image} alt={`${car.make} ${car.model}`} />
@@ -102,7 +100,7 @@ const CarDetail = () => {
             <div className="car-detail-header">
               <div>
                 <h1>{car.make} {car.model}</h1>
-                <p className="car-detail-year">{car.year} · {car.type}</p>
+                <p className="car-detail-year">{car.year} - {car.type}</p>
               </div>
               <div className="car-detail-price">
                 <span className="price-amount">${car.price_per_day}</span>
@@ -114,28 +112,23 @@ const CarDetail = () => {
 
             <div className="car-detail-specs">
               <div className="spec-item">
-                <span className="spec-icon">🪑</span>
                 <span className="spec-label">Seats</span>
                 <span className="spec-value">{car.seats}</span>
               </div>
               <div className="spec-item">
-                <span className="spec-icon">⚙️</span>
                 <span className="spec-label">Transmission</span>
                 <span className="spec-value">{car.transmission}</span>
               </div>
               <div className="spec-item">
-                <span className="spec-icon">⛽</span>
                 <span className="spec-label">Fuel</span>
                 <span className="spec-value">{car.fuel_type}</span>
               </div>
               <div className="spec-item">
-                <span className="spec-icon">⭐</span>
                 <span className="spec-label">Rating</span>
                 <span className="spec-value">{avgRating ? `${avgRating}/5` : 'No reviews'}</span>
               </div>
             </div>
 
-            {/* Reviews */}
             <div className="reviews-section">
               <h2>Customer Reviews {reviews.length > 0 && `(${reviews.length})`}</h2>
               {reviews.length === 0 ? (
@@ -146,7 +139,7 @@ const CarDetail = () => {
                     <div key={review.id} className="review-card">
                       <div className="review-header">
                         <span className="review-username">{review.username}</span>
-                        <span className="stars">{renderStars(review.rating)}</span>
+                        <span className="review-rating">{renderStars(review.rating)}</span>
                       </div>
                       {review.comment && <p className="review-comment">{review.comment}</p>}
                       <span className="review-date">
@@ -159,7 +152,6 @@ const CarDetail = () => {
             </div>
           </div>
 
-          {/* Right: Booking Form */}
           <div className="booking-card card">
             <h2>Book This Car</h2>
 
@@ -193,7 +185,7 @@ const CarDetail = () => {
                 {calculateDays() > 0 && (
                   <div className="price-breakdown">
                     <div className="price-row">
-                      <span>${car.price_per_day} × {calculateDays()} day{calculateDays() !== 1 ? 's' : ''}</span>
+                      <span>${car.price_per_day} x {calculateDays()} day{calculateDays() !== 1 ? 's' : ''}</span>
                       <span>${calculateTotal()}</span>
                     </div>
                     <div className="price-row total">
@@ -214,7 +206,7 @@ const CarDetail = () => {
             ) : (
               !bookingSuccess && (
                 <div className="unavailable-msg">
-                  <p>😔 This car is currently unavailable.</p>
+                  <p>This car is currently unavailable.</p>
                   <button className="btn btn-outline" onClick={() => navigate('/cars')}>
                     Browse Other Cars
                   </button>

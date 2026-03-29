@@ -14,23 +14,33 @@
 }
 
 .admin-stat-card {
-  background: var(--white);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 24px;
   text-align: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.admin-stat-card:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-gold);
 }
 
 .admin-stat-card h3 {
   font-size: 36px;
   font-weight: 800;
-  color: var(--primary);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 6px;
 }
 
 .admin-stat-card p {
   font-size: 14px;
-  color: var(--gray);
+  color: var(--gray-300);
   font-weight: 500;
 }
 
@@ -40,37 +50,39 @@
   display: flex;
   gap: 8px;
   margin-bottom: 24px;
-  border-bottom: 2px solid var(--gray-light);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 0;
 }
 
 .tab-btn {
   background: none;
   border: none;
-  padding: 10px 20px;
-  font-size: 15px;
+  padding: 10px 24px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--gray-300);
   cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   transition: var(--transition);
+  letter-spacing: 0.3px;
 }
 
-.tab-btn:hover { color: var(--primary); }
+.tab-btn:hover { color: var(--gold); }
 
 .tab-btn.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
+  color: var(--gold);
+  border-bottom-color: var(--gold);
 }
 
 /* ─── Table ──────────────────────────────────────────────────────────────── */
 
 .admin-table-wrapper {
   overflow-x: auto;
-  background: var(--white);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
 }
 
 .admin-table {
@@ -79,31 +91,34 @@
 }
 
 .admin-table th {
-  background: var(--light);
-  padding: 14px 16px;
+  background: var(--bg-secondary);
+  padding: 14px 20px;
   text-align: left;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--gray);
+  color: var(--gray-300);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-table td {
-  padding: 14px 16px;
+  padding: 16px 20px;
   font-size: 14px;
-  color: var(--dark);
-  border-bottom: 1px solid var(--gray-light);
+  color: var(--gray-100);
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-table tr:last-child td { border-bottom: none; }
 
-.admin-table tr:hover td { background: var(--light); }
+.admin-table tr:hover td {
+  background: var(--bg-card-hover);
+}
 
 .table-sub {
   font-size: 12px;
-  color: var(--gray);
-  margin-top: 2px;
+  color: var(--gray-300);
+  margin-top: 3px;
 }
 
 /* ─── Add Car Form ───────────────────────────────────────────────────────── */
@@ -111,13 +126,17 @@
 .add-car-form {
   max-width: 700px;
   padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .add-car-form h2 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 24px;
-  color: var(--dark);
+  color: var(--white);
 }
 
 .form-row {
