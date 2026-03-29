@@ -1,0 +1,205 @@
+/* ─── Hero ─────────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #1C1C1E 0%, #1A73E8 100%);
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  max-width: 680px;
+  padding: 80px 24px;
+}
+
+.hero-content h1 {
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+  color: #FF6D00;
+}
+
+.hero-content p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-outline-white:hover {
+  background: white;
+  color: var(--dark);
+}
+
+/* ─── Stats ─────────────────────────────────────────────────────────────── */
+
+.stats {
+  background: var(--primary);
+  padding: 40px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.stat-item p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+/* ─── Featured Cars ──────────────────────────────────────────────────────── */
+
+.featured-cars {
+  padding: 72px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.view-all {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* ─── Why Us ─────────────────────────────────────────────────────────────── */
+
+.why-us {
+  background: var(--white);
+  padding: 72px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--light);
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* ─── CTA ────────────────────────────────────────────────────────────────── */
+
+.cta {
+  background: linear-gradient(135deg, var(--dark) 0%, #2D2D30 100%);
+  padding: 72px 0;
+}
+
+.cta-content {
+  text-align: center;
+  color: white;
+}
+
+.cta-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.cta-content p {
+  font-size: 18px;
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero-content h1  { font-size: 34px; }
+  .stats-grid       { grid-template-columns: repeat(2, 1fr); }
+  .hero-content     { padding: 60px 16px; }
+}

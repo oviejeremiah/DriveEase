@@ -1,0 +1,103 @@
+.car-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.car-card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.car-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover .car-card-image img {
+  transform: scale(1.04);
+}
+
+.availability-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.car-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+}
+
+.car-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.car-card-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.car-year {
+  background: var(--light);
+  color: var(--gray);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.car-description {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.car-specs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.car-specs span {
+  font-size: 13px;
+  color: var(--gray);
+  background: var(--light);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.car-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-light);
+}
+
+.car-price {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.price-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.price-unit {
+  font-size: 14px;
+  color: var(--gray);
+}

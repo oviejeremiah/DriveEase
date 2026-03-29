@@ -1,87 +1,278 @@
-/* Add to existing CSS */
-.content {
-  padding: 2rem;
+/* ─── DriveEase Global Styles ─────────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.car-list h2 {
-  text-align: center;
-  margin-bottom: 2rem;
+:root {
+  --primary:       #1A73E8;
+  --primary-dark:  #1557B0;
+  --accent:        #FF6D00;
+  --accent-dark:   #E65100;
+  --dark:          #1C1C1E;
+  --light:         #F5F7FA;
+  --white:         #FFFFFF;
+  --gray:          #6B7280;
+  --gray-light:    #E5E7EB;
+  --success:       #10B981;
+  --danger:        #EF4444;
+  --warning:       #F59E0B;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:     0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg:     0 8px 24px rgba(0,0,0,0.12);
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+  --transition:    all 0.2s ease;
 }
 
-.car-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
 }
 
-.car-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  transition: transform 0.3s ease;
+/* ─── Layout ───────────────────────────────────────────────────────────── */
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.car-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+.main-content {
+  flex: 1;
 }
 
-.car-card img {
-  width: 100%;
-  border-radius: 4px;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.car-card h3 {
-  margin: 1rem 0 0.5rem;
+/* ─── Buttons ──────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
 }
 
-.car-card p {
-  margin: 0.25rem 0;
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
 }
 
-.car-card .price {
-  font-weight: bold;
-  color: #1976d2;
-  margin: 0.5rem 0;
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
-.car-card button {
-  margin-top: 1rem;
-  width: 100%;
+.btn-accent {
+  background: var(--accent);
+  color: var(--white);
 }
 
-/* Add to existing CSS */
-.auth-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.btn-accent:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background: #DC2626;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Forms ────────────────────────────────────────────────────────────── */
 
 .form-group {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-light);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  transition: var(--transition);
+  background: var(--white);
+  color: var(--dark);
 }
 
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+/* ─── Cards ────────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ─── Badges ───────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-success {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.badge-danger {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.badge-warning {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.badge-info {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+/* ─── Alerts ───────────────────────────────────────────────────────────── */
+
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.alert-error {
+  background: #FEE2E2;
+  color: #991B1B;
+  border-left: 4px solid var(--danger);
+}
+
+.alert-success {
+  background: #D1FAE5;
+  color: #065F46;
+  border-left: 4px solid var(--success);
+}
+
+/* ─── Page headers ─────────────────────────────────────────────────────── */
+
+.page-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  padding: 48px 0;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+/* ─── Loading spinner ──────────────────────────────────────────────────── */
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--gray-light);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Star ratings ─────────────────────────────────────────────────────── */
+
+.stars {
+  color: var(--warning);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .page-header h1 { font-size: 26px; }
+  .page-header p  { font-size: 15px; }
+  .container      { padding: 0 16px; }
 }

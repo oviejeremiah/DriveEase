@@ -1,0 +1,78 @@
+.cars-page {
+  min-height: 80vh;
+}
+
+.cars-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding-top: 32px;
+  padding-bottom: 60px;
+  align-items: start;
+}
+
+/* ─── Filters Sidebar ────────────────────────────────────────────────────── */
+
+.filters-sidebar {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 80px;
+}
+
+.filters-sidebar h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--dark);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.filter-btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* ─── Results ────────────────────────────────────────────────────────────── */
+
+.results-header {
+  margin-bottom: 20px;
+}
+
+.results-header p {
+  font-size: 15px;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--gray);
+}
+
+.no-results p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .cars-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-sidebar {
+    position: static;
+  }
+}
