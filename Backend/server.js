@@ -364,6 +364,71 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+// ─── ARIA AI Chat Route ───────────────────────────────────────────────────────
+
+const Anthropic = require('@anthropic-ai/sdk');
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+app.post('/api/aria', async (req, res) => {
+  const { messages, userContext } = req.body;
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Messages array is required' });
+  }
+
+  try {
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1024,
+      system: `You are Aria, a friendly and professional AI customer service assistant for DriveEase — a premium car rental company based in the United Kingdom.
+
+Your personality:
+- Warm, helpful and professional
+- Concise but thorough — never give overly long responses
+- You speak like a real human agent, not a robot
+- You use natural conversational language
+
+Your capabilities:
+- Help users with their bookings and reservations
+- Collect and process car reviews conversationally
+- Recommend cars based on user needs
+- Handle complaints with empathy and professionalism
+- Answer general questions about DriveEase services
+- Provide information about available car types, pricing and policies
+
+DriveEase information:
+- Located at 11 Beckenham Road, Nottingham NG7 5NT, United Kingdom
+- Phone: +447881169931
+- Email: support@driveease.com
+- Available car types: Sedan, SUV, Electric, Luxury
+- All bookings are confirmed instantly
+- 24/7 customer support
+
+${userContext ? `Current user context: ${userContext}` : ''}
+
+Important rules:
+- Never make up booking details you don't know
+- If asked about specific booking IDs or prices, work with what the user tells you
+- When collecting a review, ask for a rating out of 5 and a comment
+- Always end complaints with an apology and a solution
+- Keep responses under 150 words unless the user asks for more detail`,
+
+      messages: messages.map(m => ({
+        role: m.role,
+        content: m.content,
+      })),
+    });
+
+    res.json({
+      message: response.content[0].text,
+      usage: response.usage,
+    });
+  } catch (err) {
+    console.error('Aria API error:', err.message);
+    res.status(500).json({ error: 'Aria is temporarily unavailable. Please try again.' });
+  }
+});
+
 // ─── Global error handler ─────────────────────────────────────────────────────
 
 app.use((err, req, res, next) => {

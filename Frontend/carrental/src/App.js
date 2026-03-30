@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import './App.css';
+import Aria from './components/Aria';
 
 // Protected route — redirects to login if not logged in
 const ProtectedRoute = ({ children }) => {
@@ -36,7 +37,8 @@ const AppContent = () => {
     <Router>
       <div className="app-wrapper">
         <Navbar />
-        <main className="main-content">
+        <Aria />
+      <main className="main-content">
           <Routes>
             <Route path="/"              element={<Home />} />
             <Route path="/cars"          element={<Cars />} />
