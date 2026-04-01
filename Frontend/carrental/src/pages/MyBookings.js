@@ -52,7 +52,7 @@ const MyBookings = () => {
         ) : (
           <div className="bookings-list">
             {bookings.map(booking => (
-              <div key={booking.id} className="booking-card card">
+              <div key={booking.id} className="booking-card">
 
                 <div className="booking-car-image">
                   <img src={booking.image} alt={`${booking.make} ${booking.model}`} />

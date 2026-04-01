@@ -32,12 +32,16 @@
   overflow: hidden;
   margin-bottom: 24px;
   height: 320px;
+  transform: none !important;
+  transition: none !important;
 }
 
 .car-detail-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: none !important;
+  transition: none !important;
 }
 
 .car-detail-image .availability-badge {
@@ -108,6 +112,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transform: none !important;
+  transition: none !important;
 }
 
 .spec-label {
@@ -155,10 +161,12 @@
   border-radius: var(--radius-md);
   padding: 16px;
   transition: var(--transition);
+  transform: none !important;
 }
 
 .review-card:hover {
   border-color: var(--border-gold);
+  transform: none !important;
 }
 
 .review-header {
@@ -196,6 +204,8 @@
   color: var(--gray-500);
 }
 
+/* ─── Booking Card ───────────────────────────────────────────────────────── */
+
 .booking-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -203,7 +213,19 @@
   box-shadow: var(--shadow-card);
   position: sticky;
   top: 80px;
-  overflow: hidden;
+  overflow: visible !important;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.booking-card:hover {
+  transform: none !important;
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-card);
 }
 
 .booking-card h2 {
@@ -215,14 +237,19 @@
   margin: 0;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   letter-spacing: 0.3px;
+  flex-shrink: 0;
 }
 
 .booking-card form {
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1;
 }
 
 .booking-card .form-group {
@@ -274,6 +301,7 @@
   padding: 14px;
   margin-bottom: 16px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .price-row {
@@ -316,6 +344,37 @@
 .booking-success-msg {
   padding: 24px;
 }
+
+/* ─── Payment Form ───────────────────────────────────────────────────────── */
+
+.booking-card .payment-form {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-card .payment-summary {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.booking-card .card-element-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.booking-card .payment-actions {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
   .car-detail-layout {

@@ -29,6 +29,11 @@ export const fetchMyBookings = () => API.get('/bookings/my');
 // Reviews
 export const submitReview = (data) => API.post('/reviews', data);
 
+// Payments
+export const createPaymentIntent = (data) => API.post('/payments/create-intent', data);
+export const confirmPayment = (data) => API.post('/payments/confirm', data);
+export const fetchPaymentStatus = (bookingId) => API.get(`/payments/${bookingId}`);
+
 // Admin
 export const adminFetchUsers = () => API.get('/admin/users');
 export const adminFetchBookings = () => API.get('/admin/bookings');

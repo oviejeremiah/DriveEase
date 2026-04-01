@@ -212,13 +212,24 @@ body {
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  transition: var(--transition);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   border-color: var(--border-gold);
   box-shadow: var(--shadow-gold);
-  transform: translateY(-4px);
+}
+
+.booking-card.card {
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  transform: none !important;
+}
+
+.booking-card.card:hover {
+  transform: none !important;
+  box-shadow: var(--shadow-card);
 }
 
 /* ─── Badges ───────────────────────────────────────────────────────────── */

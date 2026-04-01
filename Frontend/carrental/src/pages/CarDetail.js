@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchCar, fetchCarReviews, createBooking } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import PaymentForm from '../components/PaymentForm';
 import './CarDetail.css';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const CarDetail = () => {
   const { id } = useParams();
@@ -16,6 +21,9 @@ const CarDetail = () => {
   const [bookingError, setBookingError] = useState('');
   const [bookingSuccess, setBookingSuccess] = useState('');
   const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingId, setBookingId] = useState(null);
+  const [bookingAmount, setBookingAmount] = useState(null);
+  const [showPayment, setShowPayment] = useState(false);
 
   const today = new Date().toISOString().split('T')[0];
   const [startDate, setStartDate] = useState('');
@@ -59,14 +67,30 @@ const CarDetail = () => {
 
     setBookingLoading(true);
     try {
-      await createBooking({ car_id: car.id, start_date: startDate, end_date: endDate });
-      setBookingSuccess('Booking confirmed! Check your bookings page.');
-      setCar(prev => ({ ...prev, available: 0 }));
+      const res = await createBooking({
+        car_id: car.id,
+        start_date: startDate,
+        end_date: endDate,
+      });
+      setBookingId(res.data.booking.id);
+      setBookingAmount(res.data.booking.total_price);
+      setShowPayment(true);
     } catch (err) {
       setBookingError(err.response?.data?.error || 'Failed to create booking.');
     } finally {
       setBookingLoading(false);
     }
+  };
+
+  const handlePaymentSuccess = (paymentIntentId) => {
+    setShowPayment(false);
+    setBookingSuccess('Payment successful! Your booking is confirmed.');
+    setCar(prev => ({ ...prev, available: 0 }));
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPayment(false);
+    setBookingError('Payment cancelled. Your booking has been held for 10 minutes.');
   };
 
   const renderStars = (rating) => `${rating}/5`;
@@ -158,7 +182,16 @@ const CarDetail = () => {
             {bookingSuccess && <div className="alert alert-success">{bookingSuccess}</div>}
             {bookingError && <div className="alert alert-error">{bookingError}</div>}
 
-            {car.available ? (
+            {showPayment ? (
+              <Elements stripe={stripePromise}>
+                <PaymentForm
+                  bookingId={bookingId}
+                  amount={bookingAmount}
+                  onSuccess={handlePaymentSuccess}
+                  onCancel={handlePaymentCancel}
+                />
+              </Elements>
+            ) : car.available ? (
               <form onSubmit={handleBooking}>
                 <div className="form-group">
                   <label>Pick-up Date</label>
@@ -203,15 +236,13 @@ const CarDetail = () => {
                   {bookingLoading ? 'Booking...' : user ? 'Confirm Booking' : 'Login to Book'}
                 </button>
               </form>
-            ) : (
-              !bookingSuccess && (
-                <div className="unavailable-msg">
-                  <p>This car is currently unavailable.</p>
-                  <button className="btn btn-outline" onClick={() => navigate('/cars')}>
-                    Browse Other Cars
-                  </button>
-                </div>
-              )
+            ) : !bookingSuccess && (
+              <div className="unavailable-msg">
+                <p>This car is currently unavailable.</p>
+                <button className="btn btn-outline" onClick={() => navigate('/cars')}>
+                  Browse Other Cars
+                </button>
+              </div>
             )}
           </div>
 

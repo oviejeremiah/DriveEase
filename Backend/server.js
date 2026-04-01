@@ -364,6 +364,107 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+// ─── STRIPE Payment Routes ────────────────────────────────────────────────────
+
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Create payment intent
+app.post('/api/payments/create-intent', authenticateToken, async (req, res) => {
+  const { booking_id, amount, currency = 'gbp' } = req.body;
+
+  if (!booking_id || !amount) {
+    return res.status(400).json({ error: 'Booking ID and amount are required' });
+  }
+
+  // Verify booking belongs to this user
+  db.get(
+    'SELECT * FROM bookings WHERE id = ? AND user_id = ?',
+    [booking_id, req.user.id],
+    async (err, booking) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+      try {
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: Math.round(amount * 100), // Stripe uses pence/cents
+          currency,
+          metadata: {
+            booking_id: booking_id.toString(),
+            user_id: req.user.id.toString(),
+          },
+        });
+
+        // Save payment record
+        db.run(
+          `INSERT OR REPLACE INTO payments (booking_id, amount, currency, status, stripe_id)
+           VALUES (?, ?, ?, 'pending', ?)`,
+          [booking_id, amount, currency, paymentIntent.id],
+          (err) => {
+            if (err) console.error('Payment record error:', err.message);
+          }
+        );
+
+        res.json({
+          clientSecret: paymentIntent.client_secret,
+          paymentIntentId: paymentIntent.id,
+        });
+      } catch (err) {
+        console.error('Stripe error:', err.message);
+        res.status(500).json({ error: 'Failed to create payment intent' });
+      }
+    }
+  );
+});
+
+// Confirm payment success
+app.post('/api/payments/confirm', authenticateToken, async (req, res) => {
+  const { payment_intent_id, booking_id } = req.body;
+
+  if (!payment_intent_id || !booking_id) {
+    return res.status(400).json({ error: 'Payment intent ID and booking ID are required' });
+  }
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
+
+    if (paymentIntent.status === 'succeeded') {
+      db.serialize(() => {
+        db.run(
+          'UPDATE payments SET status = ? WHERE stripe_id = ?',
+          ['completed', payment_intent_id]
+        );
+        db.run(
+          'UPDATE bookings SET status = ? WHERE id = ?',
+          ['confirmed', booking_id]
+        );
+      });
+
+      res.json({ message: 'Payment confirmed successfully', status: 'succeeded' });
+    } else {
+      res.status(400).json({ error: 'Payment not completed', status: paymentIntent.status });
+    }
+  } catch (err) {
+    console.error('Payment confirm error:', err.message);
+    res.status(500).json({ error: 'Failed to confirm payment' });
+  }
+});
+
+// GET payment status for a booking
+app.get('/api/payments/:booking_id', authenticateToken, (req, res) => {
+  const { booking_id } = req.params;
+
+  db.get(
+    'SELECT * FROM payments WHERE booking_id = ?',
+    [booking_id],
+    (err, payment) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      if (!payment) return res.status(404).json({ error: 'No payment found' });
+      res.json(payment);
+    }
+  );
+});
+
 // ─── ARIA AI Chat Route ───────────────────────────────────────────────────────
 
 const Anthropic = require('@anthropic-ai/sdk');
