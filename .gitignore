@@ -152,6 +152,11 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
+# Ignore database files
+Backend/*.db
+Backend/*.db-shm
+Backend/*.db-wal
+
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
