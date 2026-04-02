@@ -60,7 +60,12 @@ body {
   min-height: 100vh;
 }
 
-.main-content { flex: 1; }
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* prevents overflow pushing footer */
+}
 
 .container {
   max-width: 1280px;
@@ -221,10 +226,10 @@ body {
 }
 
 .booking-card.card {
-  overflow: visible;
+  overflow: hidden; /* FIX overflow issue */
   display: flex;
   flex-direction: column;
-  transform: none !important;
+  position: relative;
 }
 
 .booking-card.card:hover {

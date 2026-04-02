@@ -9,7 +9,7 @@ const MyBookings = () => {
 
   useEffect(() => {
     fetchMyBookings()
-      .then(res => setBookings(res.data.bookings))
+      .then(res => setBookings(res.data.bookings || []))
       .catch(() => setError('Failed to load bookings.'))
       .finally(() => setLoading(false));
   }, []);
@@ -19,16 +19,13 @@ const MyBookings = () => {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   };
 
-  const getStatusBadge = (status) => {
-    const map = {
-      confirmed: 'badge-success',
-      pending:   'badge-warning',
-      cancelled: 'badge-danger',
-    };
-    return map[status] || 'badge-info';
-  };
-
-  if (loading) return <div className="spinner-wrapper"><div className="spinner" /></div>;
+  if (loading) {
+    return (
+      <div className="spinner-wrapper">
+        <div className="spinner" />
+      </div>
+    );
+  }
 
   return (
     <div className="bookings-page">
@@ -51,50 +48,58 @@ const MyBookings = () => {
           </div>
         ) : (
           <div className="bookings-list">
-            {bookings.map(booking => (
-              <div key={booking.id} className="booking-card">
+            {bookings.map((booking, index) => (
+              <div key={booking.id || index} className="booking-card">
 
+                {/* ─── Image Section ─── */}
                 <div className="booking-car-image">
-                  <img src={booking.image} alt={`${booking.make} ${booking.model}`} />
+                  <img
+                    src={booking.image || "/placeholder-car.jpg"}
+                    alt={`${booking.make} ${booking.model}`}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = "/placeholder-car.jpg";
+                    }}
+                  />
+
+                  {/* Status Badge */}
+                  <span className={`status-badge ${booking.status}`}>
+                    {booking.status}
+                  </span>
                 </div>
 
+                {/* ─── Details Section ─── */}
                 <div className="booking-details">
-                  <div className="booking-header">
-                    <h3>{booking.make} {booking.model} {booking.year}</h3>
-                    <span className={`badge ${getStatusBadge(booking.status)}`}>
-                      {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+
+                  {/* Car Title */}
+                  <h3 className="car-title">
+                    {booking.make} {booking.model}
+                    <span className="car-year"> {booking.year}</span>
+                  </h3>
+
+                  {/* Booking Type */}
+                  <p className="booking-type">{booking.type}</p>
+
+                  {/* Dates */}
+                  <div className="booking-dates">
+                    <span>
+                      {new Date(booking.start_date).toLocaleDateString()}
+                    </span>
+                    <span className="date-separator">→</span>
+                    <span>
+                      {new Date(booking.end_date).toLocaleDateString()}
                     </span>
                   </div>
 
-                  <p className="booking-type">{booking.type}</p>
-
-                  <div className="booking-dates">
-                    <div className="date-item">
-                      <span className="date-label">Pick-up</span>
-                      <span className="date-value">
-                        {new Date(booking.start_date).toLocaleDateString('en-US', {
-                          weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-                        })}
-                      </span>
-                    </div>
-                    <div className="date-arrow">to</div>
-                    <div className="date-item">
-                      <span className="date-label">Return</span>
-                      <span className="date-value">
-                        {new Date(booking.end_date).toLocaleDateString('en-US', {
-                          weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-                        })}
-                      </span>
-                    </div>
-                  </div>
-
+                  {/* Footer */}
                   <div className="booking-footer">
-                    <div className="booking-duration">
+                    <span className="booking-duration">
                       {calculateDays(booking.start_date, booking.end_date)} day(s)
-                    </div>
-                    <div className="booking-total">
-                      Total: <strong>${booking.total_price.toFixed(2)}</strong>
-                    </div>
+                    </span>
+
+                    <span className="booking-price">
+                      ${booking.total_price?.toFixed(2)}
+                    </span>
                   </div>
 
                 </div>
